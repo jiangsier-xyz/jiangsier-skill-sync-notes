@@ -1,0 +1,33 @@
+# sync-notes — rclone config template
+#
+# Copy this file to `rclone.conf` and fill in your real values, OR run:
+#   scripts/setup.sh
+# which generates `rclone.conf` (chmod 600) for you and obscures the crypt
+# passwords with `rclone obscure`.
+#
+# Two remotes are required:
+#   1. `r2-raw`  — raw S3 access to the Cloudflare R2 bucket
+#   2. `notes`   — rclone crypt remote layered on top of `r2-raw`
+#
+# `notes` is what scripts/sync.sh talks to (see RCLONE_REMOTE in .env).
+
+[r2-raw]
+type = s3
+provider = Cloudflare
+access_key_id = <ACCESS_KEY_ID>
+secret_access_key = <SECRET_ACCESS_KEY>
+endpoint = https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+acl = private
+
+[notes]
+type = crypt
+remote = r2-raw:<BUCKET>/<OPTIONAL_PREFIX>
+filename_encryption = standard
+# Remotely Save uses base64; rclone's default is base32. Keep them in sync
+# with whichever client also writes to the bucket.
+filename_encoding = base64
+directory_name_encryption = true
+# Both passwords must be obscured with `rclone obscure '<plaintext>'`.
+# password2 is optional — leave the line out if you don't use a salt.
+password = <OBSCURED_PASSWORD>
+password2 = <OBSCURED_PASSWORD2>
