@@ -1,7 +1,7 @@
 ---
 name: sync-notes
 description: Sync the local Obsidian vault with a Cloudflare R2 bucket using rclone (S3 + crypt). Triggered by `/sync-notes`. Defaults to bidirectional sync; understands natural-language flags for partial download/upload by glob.
-version: 1.0.0
+version: 1.0.1
 metadata:
   {"openclaw":{"emoji":"☁️","requires":{"bins":["rclone","bash"],"env":["CLOUD_NOTES_PATH"]}}}
 ---
