@@ -12,9 +12,6 @@
 
 set -euo pipefail
 
-# Ensure user-local rclone install is on PATH
-export PATH="$HOME/.openclaw/workspace/bin:$PATH"
-
 # ---------- path resolution (relative to this script) -------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
